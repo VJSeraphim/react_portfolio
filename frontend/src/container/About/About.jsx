@@ -3,33 +3,26 @@ import { motion } from 'framer-motion'
 
 import './About.scss'
 import { images } from '../../constants'
-
-const profiles = [
-  { title: 'Web Development',
-    description: 'Junior React Frontend Developer',
-    imgUrl: images.about01
-  },
-  { title: 'Web Design',
-    description: 'CSS & Frameworks',
-    imgUrl: images.about02
-  },
-  { title: 'Backend Basics',
-    description: 'Node & Sanity, Solidity for Blockchains',
-    imgUrl: images.about03
-  },
-  { title: 'Others',
-    description: 'Ready For Challenges',
-    imgUrl: images.about04
-  },
-]
+import { urlFor, client } from '../../client'
 
 const About = () => {
+  const [profiles, setProfiles] = useState([])
+
+  useEffect(() => {
+    const query = '*[_type == "abouts]'
+
+    client.fetch(query)
+    .then((data) => {
+      setProfiles(data)
+    })
+  }, [])
+
   return (
     <>
       <h2 className="head-text">
         I know that 
         <span>
-          Good Design 
+          Good Development 
         </span>
         <br />
         means
